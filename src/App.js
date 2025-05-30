@@ -8,6 +8,8 @@ import ProductList from './components/ProductList';
 import PrivateComponent from './components/PrivateComponent';
 import { BrowserRouter ,Routes , Route } from 'react-router-dom';
 import UpdateProduct from './components/UpdateProduct';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   return (
@@ -25,6 +27,9 @@ function App() {
           
           <Route path='/signup' element={<SignUp/>}>SignUp</Route>
           <Route path='/login' element={<Login/>}></Route>
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
         </Routes>
         </BrowserRouter>       
       </header>

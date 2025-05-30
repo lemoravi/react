@@ -18,7 +18,7 @@ const AddProduct = () => {
             return;
         }
 
-        let result = await fetch('http://localhost:5002/add-product', {
+        let result = await fetch('https://node-ii6z.onrender.com/add-product', {
             method: 'POST',
             body: JSON.stringify({ name, price, category, userId, company }),
             headers: {

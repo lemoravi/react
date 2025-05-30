@@ -60,9 +60,16 @@ const SignUp = () => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Enter password"
       />
-      <button onClick={collectData} className="signupBtn" type="button">
-        Sign Up
-      </button>
+     <button onClick={collectData} className="signupBtn" type="button">
+      Sign Up
+    </button>
+
+    <p style={{ marginTop: '10px' }}>
+      <a href="/forgot-password" style={{ color: '#007bff', textDecoration: 'none' }}>
+        Forgot Password?
+      </a>
+    </p>
+
     </div>
   );
 };
