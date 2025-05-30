@@ -1,23 +1,25 @@
-import React, { useState,useEffect } from "react";
+// src/components/SignUp.js
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-
   const [name, setName] = useState(""); 
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState(""); 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = localStorage.getItem('user');
+    if (auth) {
+      navigate('/');
+    }
+  }, [navigate]);
+
   const handleForgotPassword = () => {
     navigate("/forgot-password");
   };
-  useEffect(()=>{
-    const auth  = localStorage.getItem('user');
-    if(auth){
-      navigate('/')
-    }
-  })
-  const collectData = async () => {
 
+  const collectData = async () => {
     try {
       const response = await fetch("https://node-ii6z.onrender.com/register", {
         method: "POST",
@@ -28,19 +30,20 @@ const SignUp = () => {
       });
 
       const result = await response.json();
-      if(result.auth){
-         localStorage.setItem('user', JSON.stringify(result.result));
-          localStorage.setItem('token', JSON.stringify(result.auth));
-        navigate('/')
+      if (result.auth) {
+        localStorage.setItem('user', JSON.stringify(result.result));
+        localStorage.setItem('token', JSON.stringify(result.auth));
+        navigate('/');
+      } else {
+        alert(result.message || "Signup failed");
       }
-      console.log("Server Response:", result);
     } catch (error) {
       console.error("Error sending data:", error);
     }
   };
 
   return (
-    <div>
+    <div className="signup-container">
       <h3>Register</h3>
       <input
         className="inputBox"
@@ -63,21 +66,13 @@ const SignUp = () => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Enter password"
       />
-     <button onClick={collectData} className="signupBtn" type="button">
-      Sign Up
-    </button>
+      <button onClick={collectData} className="signupBtn" type="button">
+        Sign Up
+      </button>
 
-    <p style={{ marginTop: '10px' }}>
-       <p style={{ marginTop: '10px' }}>
-        <span
-          onClick={handleForgotPassword}
-          style={{ color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
-        >
-          Forgot Password?
-        </span>
+      <p className="forgot-link" onClick={handleForgotPassword}>
+        Forgot Password?
       </p>
-    </p>
-
     </div>
   );
 };

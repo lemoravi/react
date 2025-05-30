@@ -1,3 +1,4 @@
+// src/components/ProductList.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,36 +11,23 @@ const ProductList = () => {
         getProducts();
     }, []);
 
-    // const getProducts = async () => {
-    //     let result = await fetch('http://localhost:5002/products',{
-    //         headers:{
-    //             authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
-    //         }
-    //     });
-    //     result = await result.json();
-    //     setProducts(result);
-    // };
-
     const getProducts = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    let result = await fetch('https://node-ii6z.onrender.com/products', {
-        headers: {
-            authorisation: user._id,
-             authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`     
-        }
-    });
-    result = await result.json();
-    setProducts(result);
-};
-
-
-
+        const user = JSON.parse(localStorage.getItem("user"));
+        let result = await fetch('https://node-ii6z.onrender.com/products', {
+            headers: {
+                authorisation: user._id,
+                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+            }
+        });
+        result = await result.json();
+        setProducts(result);
+    };
 
     const deleteProduct = async (id) => {
         let result = await fetch(`https://node-ii6z.onrender.com/product/${id}`, {
             method: 'DELETE',
-             headers:{
-                authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+            headers: {
+                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
             }
         });
         result = await result.json();
@@ -55,15 +43,13 @@ const ProductList = () => {
         setSearchTerm(key);
 
         if (key) {
-            let result = await fetch(`https://node-ii6z.onrender.com/search/${key}`,{
-                 headers:{
-                authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
-            }
+            let result = await fetch(`https://node-ii6z.onrender.com/search/${key}`, {
+                headers: {
+                    authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
             });
             result = await result.json();
-            if (result) {
-                setProducts(result);
-            }
+            if (result) setProducts(result);
         } else {
             getProducts();
         }
@@ -78,7 +64,6 @@ const ProductList = () => {
                 value={searchTerm}
                 onChange={searchHandle}
                 className="search-input"
-                style={{ marginBottom: '20px', padding: '8px', width: '300px' }}
             />
             {
                 products.length > 0 ? (

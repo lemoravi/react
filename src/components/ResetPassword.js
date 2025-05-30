@@ -14,6 +14,7 @@ const ResetPassword = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password })
         });
+
         const data = await result.json();
         setMessage(data.message);
 
@@ -25,9 +26,16 @@ const ResetPassword = () => {
     return (
         <div className="reset-password">
             <h2>Reset Password</h2>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter new password" />
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter new password"
+            />
             <button onClick={handleReset}>Reset Password</button>
-            {message && <p>{message}</p>}
+            {message && (
+                <p className={message.includes("success") ? "success" : "error"}>{message}</p>
+            )}
         </div>
     );
 };

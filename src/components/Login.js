@@ -1,17 +1,19 @@
+// src/components/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         if (!email || !password) {
             setError('Please fill in all fields');
             return;
         }
+
         const response = await fetch('https://node-ii6z.onrender.com/login', {
             method: 'POST',
             headers: {
@@ -19,6 +21,7 @@ const Login = () => {
             },
             body: JSON.stringify({ email, password })
         });
+
         const result = await response.json();
         if (result.auth) {
             localStorage.setItem('user', JSON.stringify(result.user));
@@ -28,8 +31,9 @@ const Login = () => {
             setError('Invalid email or password');
         }
     };
+
     return (
-        <div>
+        <div className="login-container">
             <h3>Login</h3>
             <input
                 className="inputBox"
@@ -46,7 +50,7 @@ const Login = () => {
                 placeholder="Enter password"
             />
             <button onClick={handleLogin} className="loginBtn" type="button">Login</button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
         </div>
     );
 };
