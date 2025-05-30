@@ -1,6 +1,6 @@
-import React, { useState} from 'react';
+// src/components/AddProduct.js
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-
 
 const AddProduct = () => {
     const [name, setName] = useState('');
@@ -9,28 +9,28 @@ const AddProduct = () => {
     const [company, setCompany] = useState('');
     const [error, setError] = useState('');
 
-    // Get userId from localStorage (must be stored there after login/registration)
     const userId = JSON.parse(localStorage.getItem('user'))?._id;
     const navigate = useNavigate();
+
     const addProduct = async () => {
         if (!name || !price || !category || !company) {
             setError('Please fill all fields');
             return;
         }
 
-        let result = await fetch('https://node-ii6z.onrender.com/add-product', {
+        const result = await fetch('https://node-ii6z.onrender.com/add-product', {
             method: 'POST',
             body: JSON.stringify({ name, price, category, userId, company }),
             headers: {
                 'Content-Type': 'application/json',
-                authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
-
+                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
             }
         });
 
-        result = await result.json();
-        console.log(result);
+        const data = await result.json();
+        console.log(data);
         alert('Product added successfully');
+
         setName('');
         setPrice('');
         setCategory('');
@@ -40,7 +40,7 @@ const AddProduct = () => {
     };
 
     return (
-        <div>
+        <div className="add-product-container">
             <h3>Add Product</h3>
             <input
                 className="inputBox"
@@ -73,7 +73,7 @@ const AddProduct = () => {
             <button onClick={addProduct} className="appButton" type="button">
                 Add Product
             </button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p>{error}</p>}
         </div>
     );
 };
