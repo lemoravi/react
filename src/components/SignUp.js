@@ -7,6 +7,9 @@ const SignUp = () => {
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState(""); 
   const navigate = useNavigate();
+  const handleForgotPassword = () => {
+    navigate("/forgot-password");
+  };
   useEffect(()=>{
     const auth  = localStorage.getItem('user');
     if(auth){
@@ -65,9 +68,14 @@ const SignUp = () => {
     </button>
 
     <p style={{ marginTop: '10px' }}>
-      <a href="/forgot-password" style={{ color: '#007bff', textDecoration: 'none' }}>
-        Forgot Password?
-      </a>
+       <p style={{ marginTop: '10px' }}>
+        <span
+          onClick={handleForgotPassword}
+          style={{ color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
+        >
+          Forgot Password?
+        </span>
+      </p>
     </p>
 
     </div>
