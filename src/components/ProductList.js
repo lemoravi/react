@@ -74,7 +74,6 @@ const ProductList = () => {
                                 <th>Price</th>
                                 <th>Category</th>
                                 <th>Company</th>
-                                <th>User ID</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -85,7 +84,6 @@ const ProductList = () => {
                                     <td>{item.price}</td>
                                     <td>{item.category}</td>
                                     <td>{item.company}</td>
-                                    <td>{item.userId}</td>
                                     <td>
                                         <button
                                             className="delete-btn"
